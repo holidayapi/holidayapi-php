@@ -1,2 +1,2 @@
 # php-holidayapi
-Official PHP library for HolidayAPI.com
+Official PHP library for [Holiday API](https://holidayapi.com)
