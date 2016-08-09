@@ -1,2 +1,2 @@
 # php-holidayapi
-Official PHP wrapper for HolidayAPI.com
+Official PHP library for HolidayAPI.com
