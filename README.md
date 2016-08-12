@@ -17,8 +17,8 @@ $parameters = array(
   'country' => 'US',
   'year'    => 2016,
   // Optional
-  // 'month'   => 7,
-  // 'day'     => 4,
+  // 'month'    => 7,
+  // 'day'      => 4,
   // 'previous' => true,
   // 'upcoming' => true,
   // 'public'   => true,
