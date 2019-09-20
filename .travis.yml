@@ -1,0 +1,46 @@
+language: php
+dist: bionic
+sudo: required
+
+matrix:
+  include:
+    - php: 5.3
+      dist: precise
+    - php: 5.4
+      dist: trusty
+    - php: 5.5
+      dist: trusty
+    - php: 5.6
+      dist: trusty
+    - php: 7.0
+      dist: xenial
+      env: PHPUNIT=5.7
+    - php: 7.1
+      env: PHPUNIT=7.5
+    - php: 7.2
+    - php: 7.3
+      env: COVERAGE=true
+
+install:
+  - composer install
+  - |
+    if [[ $PHPUNIT ]]; then
+      composer require "phpunit/phpunit:$PHPUNIT"
+    fi
+
+before_script:
+  - mkdir -p build/logs
+
+script:
+  - |
+    if [[ $PHPUNIT ]]; then
+      vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+    else
+      phpunit --coverage-clover build/logs/clover.xml
+    fi
+
+after_success:
+  - |
+    if [[ $COVERAGE ]]; then
+      php vendor/bin/coveralls --config .coveralls.yml -v
+    fi
