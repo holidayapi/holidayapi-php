@@ -14,33 +14,27 @@ matrix:
       dist: trusty
     - php: 7.0
       dist: xenial
-      env: PHPUNIT=5.7
     - php: 7.1
-      env: PHPUNIT=7.5
     - php: 7.2
     - php: 7.3
+    - php: 7.4
       env: COVERAGE=true
+    - php: nightly
+  allow_failures:
+    - php: nightly
 
 install:
+  - php --version
   - composer install
-  - |
-    if [[ $PHPUNIT ]]; then
-      composer require "phpunit/phpunit:$PHPUNIT"
-    fi
 
 before_script:
   - mkdir -p build/logs
 
 script:
-  - |
-    if [[ $PHPUNIT ]]; then
-      vendor/bin/phpunit --coverage-clover build/logs/clover.xml
-    else
-      phpunit --coverage-clover build/logs/clover.xml
-    fi
+  - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
 after_success:
   - |
     if [[ $COVERAGE ]]; then
-      php vendor/bin/coveralls --config .coveralls.yml -v
+      travis_retry php vendor/bin/php-coveralls --config .coveralls.yml -v
     fi

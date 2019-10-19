@@ -1,7 +1,7 @@
 {
   "name": "holidayapi/holidayapi-php",
   "description": "Official PHP library for Holiday API",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "type": "library",
   "keywords": [
     "calendar",
@@ -17,10 +17,11 @@
     "homepage": "https://holidayapi.com"
   }],
   "require": {
-    "php": ">=5.3.0"
+    "php": ">=5.3"
   },
   "require-dev": {
-    "satooshi/php-coveralls": "~1.0"
+    "php-coveralls/php-coveralls": ">=1",
+    "phpunit/phpunit": ">=4"
   },
   "autoload": {
     "psr-4": { "HolidayAPI\\": "src/" }
