@@ -1,6 +1,6 @@
 # Holiday API PHP Library
 
-[![License](https://img.shields.io/npm/l/holidayapi-php?style=for-the-badge)](https://github.com/holidayapi/holidayapi-php/blob/master/LICENSE)
+[![License](https://img.shields.io/packagist/l/holidayapi/holidayapi-php?style=for-the-badge)](https://github.com/holidayapi/holidayapi-php/blob/master/LICENSE)
 ![PHP Version](https://img.shields.io/packagist/php-v/holidayapi/holidayapi-php?style=for-the-badge)
 ![Build Status](https://img.shields.io/travis/holidayapi/holidayapi-php/master?style=for-the-badge)
 [![Coverage Status](https://img.shields.io/coveralls/github/holidayapi/holidayapi-php/master?style=for-the-badge)](https://coveralls.io/github/holidayapi/holidayapi-php?branch=master)
