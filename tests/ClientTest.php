@@ -131,6 +131,40 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         ), $client->countries(array('search' => 'Sao')));
     }
 
+    public function testReturnCountryByCode()
+    {
+        $url = self::BASE_URL . 'countries?key=' . self::KEY . '&country=ST';
+
+        $request = new Request(array(
+            'execute' => array(
+                $url => function ()
+                {
+                    return json_encode(array(
+                        'status' => 200,
+                        'countries' => array(
+                            array(
+                                'code' => 'ST',
+                                'name' => 'Sao Tome and Principle',
+                            ),
+                        ),
+                    ));
+                },
+            ),
+        ));
+
+        $client = new Client(array('key' => self::KEY, 'handler' => $request));
+
+        $this->assertEquals(array(
+            'status' => 200,
+            'countries' => array(
+                array(
+                    'code' => 'ST',
+                    'name' => 'Sao Tome and Principle',
+                ),
+            ),
+        ), $client->countries(array('country' => 'ST')));
+    }
+
     public function testCountriesRaise4xxErrors()
     {
         $url = self::BASE_URL . 'countries?key=' . self::KEY;
@@ -432,6 +466,40 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 ),
             ),
         ), $client->languages(array('search' => 'Eng')));
+    }
+
+    public function testReturnLanguageByCode()
+    {
+        $url = self::BASE_URL . 'languages?key=' . self::KEY . '&language=en';
+
+        $request = new Request(array(
+            'execute' => array(
+                $url => function ()
+                {
+                    return json_encode(array(
+                        'status' => 200,
+                        'languages' => array(
+                            array(
+                                'code' => 'en',
+                                'name' => 'English',
+                            ),
+                        ),
+                    ));
+                },
+            ),
+        ));
+
+        $client = new Client(array('key' => self::KEY, 'handler' => $request));
+
+        $this->assertEquals(array(
+            'status' => 200,
+            'languages' => array(
+                array(
+                    'code' => 'en',
+                    'name' => 'English',
+                ),
+            ),
+        ), $client->languages(array('language' => 'en')));
     }
 
     public function testLanguagesRaise4xxErrors()

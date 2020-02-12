@@ -55,32 +55,6 @@ class Client
     private function request($endpoint, $request)
     {
         return $this->handler->get($this->createUrl($endpoint, $request));
-
-        /*
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $this->createUrl($endpoint, $request),
-            CURLOPT_HEADER => false,
-            CURLOPT_SSL_VERIFYPEER => true,
-            CURLOPT_RETURNTRANSFER => true,
-        ));
-
-        $response = curl_exec($curl);
-
-        if ($error = curl_error($curl)) {
-            throw new \Exception($error);
-        }
-
-        curl_close($curl);
-        $response = json_decode($response, true);
-
-        if (!$response) {
-            throw new \Exception('Empty response received');
-        }
-
-        return $response;
-        */
     }
 
     public function countries($request = array())
