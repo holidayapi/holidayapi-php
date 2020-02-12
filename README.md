@@ -67,7 +67,15 @@ try {
 $holiday_api->countries();
 ```
 
-#### Search for a country by code or name
+#### Fetch a supported country by code
+
+```php
+$holiday_api->countries([
+  'country' => 'NO',
+]);
+```
+
+#### Search for countries by code or name
 
 ```php
 $holiday_api->countries([
@@ -83,7 +91,15 @@ $holiday_api->countries([
 $holiday_api->languages();
 ```
 
-#### Search for a language by code or name
+#### Fetch a supported language by code
+
+```php
+$holiday_api->languages([
+  'language' => 'es',
+]);
+```
+
+#### Search for languages by code or name
 
 ```php
 $holiday_api->languages([
