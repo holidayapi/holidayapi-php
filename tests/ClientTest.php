@@ -165,6 +165,40 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         ), $client->countries(array('country' => 'ST')));
     }
 
+    public function testReturnCountryWithPublic()
+    {
+        $url = self::BASE_URL . 'countries?key=' . self::KEY . '&public=1';
+
+        $request = new Request(array(
+            'execute' => array(
+                $url => function ()
+                {
+                    return json_encode(array(
+                        'status' => 200,
+                        'countries' => array(
+                            array(
+                                'code' => 'ST',
+                                'name' => 'Sao Tome and Principle',
+                            ),
+                        ),
+                    ));
+                },
+            ),
+        ));
+
+        $client = new Client(array('key' => self::KEY, 'handler' => $request));
+
+        $this->assertEquals(array(
+            'status' => 200,
+            'countries' => array(
+                array(
+                    'code' => 'ST',
+                    'name' => 'Sao Tome and Principle',
+                ),
+            ),
+        ), $client->countries(array('public' => true)));
+    }
+
     public function testCountriesRaise4xxErrors()
     {
         $url = self::BASE_URL . 'countries?key=' . self::KEY;

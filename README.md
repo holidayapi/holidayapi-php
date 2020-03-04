@@ -67,6 +67,14 @@ try {
 $holiday_api->countries();
 ```
 
+#### Fetch only countries with public holidays
+
+```php
+$holiday_api->countries([
+  'public' => true,
+]);
+```
+
 #### Fetch a supported country by code
 
 ```php
