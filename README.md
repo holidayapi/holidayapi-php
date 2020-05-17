@@ -35,6 +35,7 @@ composer require holidayapi/holidayapi-php
 ## Usage
 
 ```php
+<?php
 $key = 'Insert your API key here';
 $holiday_api = new \HolidayAPI\Client(['key' => $key]);
 
@@ -64,12 +65,14 @@ try {
 #### Fetch all supported countries
 
 ```php
+<?php
 $holiday_api->countries();
 ```
 
 #### Fetch only countries with public holidays
 
 ```php
+<?php
 $holiday_api->countries([
   'public' => true,
 ]);
@@ -78,6 +81,7 @@ $holiday_api->countries([
 #### Fetch a supported country by code
 
 ```php
+<?php
 $holiday_api->countries([
   'country' => 'NO',
 ]);
@@ -86,6 +90,7 @@ $holiday_api->countries([
 #### Search for countries by code or name
 
 ```php
+<?php
 $holiday_api->countries([
   'search' => 'united',
 ]);
@@ -96,12 +101,14 @@ $holiday_api->countries([
 #### Fetch all supported languages
 
 ```php
+<?php
 $holiday_api->languages();
 ```
 
 #### Fetch a supported language by code
 
 ```php
+<?php
 $holiday_api->languages([
   'language' => 'es',
 ]);
@@ -110,6 +117,7 @@ $holiday_api->languages([
 #### Search for languages by code or name
 
 ```php
+<?php
 $holiday_api->languages([
   'search' => 'Chinese',
 ]);
@@ -120,6 +128,7 @@ $holiday_api->languages([
 #### Fetch holidays for a specific year
 
 ```php
+<?php
 $holiday_api->holidays([
   'country' => 'US',
   'year' => 2019,
@@ -129,6 +138,7 @@ $holiday_api->holidays([
 #### Fetch holidays for a specific month
 
 ```php
+<?php
 $holiday_api->holidays([
   'country' => 'US',
   'year' => 2019,
@@ -139,6 +149,7 @@ $holiday_api->holidays([
 #### Fetch holidays for a specific day
 
 ```php
+<?php
 $holiday_api->holidays([
   'country' => 'US',
   'year' => 2019,
@@ -150,6 +161,7 @@ $holiday_api->holidays([
 #### Fetch upcoming holidays based on a specific date
 
 ```php
+<?php
 $holiday_api->holidays([
   'country' => 'US',
   'year' => 2019,
@@ -162,6 +174,7 @@ $holiday_api->holidays([
 #### Fetch previous holidays based on a specific date
 
 ```php
+<?php
 $holiday_api->holidays([
   'country' => 'US',
   'year' => 2019,
@@ -174,6 +187,7 @@ $holiday_api->holidays([
 #### Fetch only public holidays
 
 ```php
+<?php
 $holiday_api->holidays([
   'country' => 'US',
   'year' => 2019,
@@ -184,6 +198,7 @@ $holiday_api->holidays([
 #### Fetch holidays for a specific subdivision
 
 ```php
+<?php
 $holiday_api->holidays([
   'country' => 'GB-ENG',
   'year' => 2019,
@@ -193,6 +208,7 @@ $holiday_api->holidays([
 #### Include subdivision holidays with countrywide holidays
 
 ```php
+<?php
 $holiday_api->holidays([
   'country' => 'US',
   'year' => 2019,
@@ -203,6 +219,7 @@ $holiday_api->holidays([
 #### Search for a holiday by name
 
 ```php
+<?php
 $holiday_api->holidays([
   'country' => 'US',
   'year' => 2019,
@@ -213,6 +230,7 @@ $holiday_api->holidays([
 #### Translate holidays to another language
 
 ```php
+<?php
 $holiday_api->holidays([
   'country' => 'US',
   'year' => 2019,
@@ -223,6 +241,7 @@ $holiday_api->holidays([
 #### Fetch holidays for multiple countries
 
 ```php
+<?php
 $holiday_api->holidays([
   'country' => 'US,GB,NZ',
   'year' => 2019,
