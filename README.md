@@ -2,8 +2,8 @@
 
 [![License](https://img.shields.io/packagist/l/holidayapi/holidayapi-php?style=for-the-badge)](https://github.com/holidayapi/holidayapi-php/blob/master/LICENSE)
 ![PHP Version](https://img.shields.io/packagist/php-v/holidayapi/holidayapi-php?style=for-the-badge)
-![Build Status](https://img.shields.io/travis/holidayapi/holidayapi-php/master?style=for-the-badge)
-[![Coverage Status](https://img.shields.io/coveralls/github/holidayapi/holidayapi-php/master?style=for-the-badge)](https://coveralls.io/github/holidayapi/holidayapi-php?branch=master)
+[![Test Status](https://img.shields.io/github/workflow/status/joshtronic/holidayapi-php/Test?style=for-the-badge)](https://github.com/joshtronic/holidayapi-php/actions)
+[![Code Coverage](https://img.shields.io/codecov/c/github/joshtronic/holidayapi-php?style=for-the-badge)](https://codecov.io/gh/joshtronic/holidayapi-php)
 
 Official PHP library for [Holiday API](https://holidayapi.com) providing quick
 and easy access to holiday information from applications written in PHP.

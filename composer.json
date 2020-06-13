@@ -20,10 +20,11 @@
     "php": ">=5.3"
   },
   "require-dev": {
-    "php-coveralls/php-coveralls": ">=1",
     "phpunit/phpunit": ">=4"
   },
   "autoload": {
-    "psr-4": { "HolidayAPI\\": "src/" }
+    "psr-4": {
+      "HolidayAPI\\": "src/"
+    }
   }
 }
