@@ -252,3 +252,16 @@ $holiday_api->holidays([
   'year' => 2019,
 ]);
 ```
+
+### Workday
+
+#### Fetch workday 7 business days after a date
+
+```php
+<?php
+$holiday_api->workday([
+  'country' => 'US',
+  'start' => '2019-07-01',
+  'days' => 7,
+]);
+```

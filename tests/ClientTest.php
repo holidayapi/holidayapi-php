@@ -255,8 +255,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testReturnHolidays()
     {
-        $url = self::BASE_URL . 'holidays?key=' . self::KEY
-            . '&country=US&year=2015&month=7&day=4';
+        $url = self::BASE_URL . 'holidays?key=' . self::KEY . '&country=US&year=2015&month=7&day=4';
 
         $request = new Request(array(
             'execute' => array(
@@ -299,8 +298,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testSearchHolidays()
     {
-        $url = self::BASE_URL . 'holidays?key=' . self::KEY
-            . '&country=US&year=2015&search=Independence';
+        $url = self::BASE_URL . 'holidays?key=' . self::KEY . '&country=US&year=2015&search=Independence';
 
         $request = new Request(array(
             'execute' => array(
@@ -340,7 +338,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         )));
     }
 
-    public function testCountryMissing()
+    public function testHolidaysCountryMissing()
     {
         $client = new Client(array('key' => self::KEY));
 
@@ -351,7 +349,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testYearMissing()
+    public function testHolidaysYearMissing()
     {
         $client = new Client(array('key' => self::KEY));
 
@@ -362,7 +360,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testBothPreviousAndUpcoming()
+    public function testHolidaysBothPreviousAndUpcoming()
     {
         $client = new Client(array('key' => self::KEY));
 
@@ -585,6 +583,151 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         try {
             $client->languages();
+        } catch (\Exception $e) {
+            $this->assertSame('Internal server error', $e->getMessage());
+        }
+    }
+
+    public function testReturnWorkday()
+    {
+        $url = self::BASE_URL . 'workday?key=' . self::KEY . '&country=US&start=2019-07-01&days=10';
+
+        $request = new Request(array(
+            'execute' => array(
+                $url => function ()
+                {
+                    return json_encode(array(
+                        'status' => 200,
+                        'workday' => array(
+                            'date' => '2019-07-16',
+                        ),
+                    ));
+                },
+            ),
+        ));
+
+        $client = new Client(array('key' => self::KEY, 'handler' => $request));
+
+        $this->assertEquals(array(
+            'status' => 200,
+            'workday' => array(
+                'date' => '2019-07-16',
+            ),
+        ), $client->workday(array(
+            'country' => 'US',
+            'start' => '2019-07-01',
+            'days' => 10,
+        )));
+    }
+
+    public function testWorkdayCountryMissing()
+    {
+        $client = new Client(array('key' => self::KEY));
+
+        try {
+            $client->workday(array());
+        } catch (\Exception $e) {
+            $this->assertRegExp('/missing country/i', $e->getMessage());
+        }
+    }
+
+    public function testWorkdayStartMissing()
+    {
+        $client = new Client(array('key' => self::KEY));
+
+        try {
+            $client->workday(array('country' => 'US'));
+        } catch (\Exception $e) {
+            $this->assertRegExp('/missing start date/i', $e->getMessage());
+        }
+    }
+
+    public function testWorkdayDaysMissing()
+    {
+        $client = new Client(array('key' => self::KEY));
+
+        try {
+            $client->workday(array(
+                'country' => 'US',
+                'start' => '2019-07-01',
+            ));
+        } catch (\Exception $e) {
+            $this->assertRegExp('/missing days/i', $e->getMessage());
+        }
+    }
+
+    public function testWorkdayDaysNegative()
+    {
+        $client = new Client(array('key' => self::KEY));
+
+        try {
+            $client->workday(array(
+                'country' => 'US',
+                'start' => '2019-07-01',
+                'days' => -10,
+            ));
+        } catch (\Exception $e) {
+            $this->assertRegExp('/days must be 1 or more/i', $e->getMessage());
+        }
+    }
+
+    public function testWorkdayRaise4xxErrors()
+    {
+        $url = self::BASE_URL . 'workday?key=' . self::KEY . '&country=US&start=2019-07-01&days=10';
+
+        $request = new Request(array(
+            'execute' => array(
+                $url => function ()
+                {
+                    return json_encode(array(
+                        'status' => 429,
+                        'error' => 'Rate limit exceeded',
+                    ));
+                },
+            ),
+        ));
+
+        $client = new Client(array('key' => self::KEY, 'handler' => $request));
+
+        try {
+            $client->workday(array(
+                'country' => 'US',
+                'start' => '2019-07-01',
+                'days' => 10,
+            ));
+        } catch (\Exception $e) {
+            $this->assertSame(429, $e->getCode());
+            $this->assertSame('Rate limit exceeded', $e->getMessage());
+        }
+    }
+
+    public function testWorkdayRaise5xxErrors()
+    {
+        $url = self::BASE_URL . 'workday?key=' . self::KEY . '&country=US&start=2019-07-01&days=10';
+
+        $request = new Request(array(
+            'execute' => array(
+                $url => function ()
+                {
+                    return false;
+                },
+            ),
+            'error' => array(
+                $url => function ()
+                {
+                    return 'Internal server error';
+                },
+            ),
+        ));
+
+        $client = new Client(array('key' => self::KEY, 'handler' => $request));
+
+        try {
+            $client->workday(array(
+                'country' => 'US',
+                'start' => '2019-07-01',
+                'days' => 10,
+            ));
         } catch (\Exception $e) {
             $this->assertSame('Internal server error', $e->getMessage());
         }
