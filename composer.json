@@ -1,7 +1,7 @@
 {
   "name": "holidayapi/holidayapi-php",
   "description": "Official PHP library for Holiday API",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "type": "library",
   "keywords": [
     "calendar",
