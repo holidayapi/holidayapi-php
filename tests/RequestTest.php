@@ -1,18 +1,9 @@
 <?php
 namespace HolidayAPI\Tests;
-use HolidayAPI\Client;
 use HolidayAPI\Request;
+use PHPUnit\Framework\TestCase;
 
-require __DIR__ . '/../vendor/autoload.php';
-
-if (
-    !class_exists('\PHPUnit_Framework_TestCase')
-    && class_exists('\PHPUnit\Framework\TestCase')
-) {
-    class_alias('\PHPUnit\Framework\TestCase', '\PHPUnit_Framework_TestCase');
-}
-
-class RequestTest extends \PHPUnit_Framework_TestCase
+class RequestTest extends TestCase
 {
     public function testExecute()
     {
