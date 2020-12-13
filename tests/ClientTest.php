@@ -2,17 +2,9 @@
 namespace HolidayAPI\Tests;
 use HolidayAPI\Client;
 use HolidayAPI\Request;
+use PHPUnit\Framework\TestCase;
 
-require __DIR__ . '/../vendor/autoload.php';
-
-if (
-    !class_exists('\PHPUnit_Framework_TestCase')
-    && class_exists('\PHPUnit\Framework\TestCase')
-) {
-    class_alias('\PHPUnit\Framework\TestCase', '\PHPUnit_Framework_TestCase');
-}
-
-class ClientTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends TestCase
 {
     const BASE_URL = 'https://holidayapi.com/v1/';
     const KEY = '8e4de28c-4b18-49f0-9aba-0bd6b424fc38';
