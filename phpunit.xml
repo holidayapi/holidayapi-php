@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
   colors="true"
-  boostrap="./vendor/autoload.php"
+  bootstrap="./vendor/autoload.php"
   convertErrorsToExceptions="true"
   convertNoticesToExceptions="true"
   convertWarningsToExceptions="true"

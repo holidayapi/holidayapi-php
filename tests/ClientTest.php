@@ -11,39 +11,63 @@ class ClientTest extends TestCase
 
     public function testMissingKey()
     {
+        if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+            $assertRegExp = 'assertMatchesRegularExpression';
+        } else {
+            $assertRegExp = 'assertRegExp';
+        }
+
         try {
-            $client = new Client(array());
+            new Client(array());
         } catch (\Exception $e) {
-            $this->assertRegExp('/missing api key/i', $e->getMessage());
+            $this->$assertRegExp('/missing api key/i', $e->getMessage());
         }
     }
 
     public function testInvalidKey()
     {
+        if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+            $assertRegExp = 'assertMatchesRegularExpression';
+        } else {
+            $assertRegExp = 'assertRegExp';
+        }
+
         try {
-            $client = new Client(array(
+            new Client(array(
                 'key' => 'zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz',
             ));
         } catch (\Exception $e) {
-            $this->assertRegExp('/invalid api key/i', $e->getMessage());
+            $this->$assertRegExp('/invalid api key/i', $e->getMessage());
         }
     }
 
     public function testVersionTooLow()
     {
+        if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+            $assertRegExp = 'assertMatchesRegularExpression';
+        } else {
+            $assertRegExp = 'assertRegExp';
+        }
+
         try {
-            $client = new Client(array('key' => self::KEY, 'version' => 0));
+            new Client(array('key' => self::KEY, 'version' => 0));
         } catch (\Exception $e) {
-            $this->assertRegExp('/invalid version/i', $e->getMessage());
+            $this->$assertRegExp('/invalid version/i', $e->getMessage());
         }
     }
 
     public function testVersionTooHigh()
     {
+        if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+            $assertRegExp = 'assertMatchesRegularExpression';
+        } else {
+            $assertRegExp = 'assertRegExp';
+        }
+
         try {
-            $client = new Client(array('key' => self::KEY, 'version' => 2));
+            new Client(array('key' => self::KEY, 'version' => 2));
         } catch (\Exception $e) {
-            $this->assertRegExp('/invalid version/i', $e->getMessage());
+            $this->$assertRegExp('/invalid version/i', $e->getMessage());
         }
     }
 
@@ -332,28 +356,46 @@ class ClientTest extends TestCase
 
     public function testHolidaysCountryMissing()
     {
+        if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+            $assertRegExp = 'assertMatchesRegularExpression';
+        } else {
+            $assertRegExp = 'assertRegExp';
+        }
+
         $client = new Client(array('key' => self::KEY));
 
         try {
             $client->holidays(array('year' => 2015));
         } catch (\Exception $e) {
-            $this->assertRegExp('/missing country/i', $e->getMessage());
+            $this->$assertRegExp('/missing country/i', $e->getMessage());
         }
     }
 
     public function testHolidaysYearMissing()
     {
+        if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+            $assertRegExp = 'assertMatchesRegularExpression';
+        } else {
+            $assertRegExp = 'assertRegExp';
+        }
+
         $client = new Client(array('key' => self::KEY));
 
         try {
             $client->holidays(array('country' => 'US'));
         } catch (\Exception $e) {
-            $this->assertRegExp('/missing year/i', $e->getMessage());
+            $this->$assertRegExp('/missing year/i', $e->getMessage());
         }
     }
 
     public function testHolidaysBothPreviousAndUpcoming()
     {
+        if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+            $assertRegExp = 'assertMatchesRegularExpression';
+        } else {
+            $assertRegExp = 'assertRegExp';
+        }
+
         $client = new Client(array('key' => self::KEY));
 
         try {
@@ -366,7 +408,7 @@ class ClientTest extends TestCase
                 'previous' => true,
             ));
         } catch (\Exception $e) {
-            $this->assertRegExp('/previous and upcoming/i', $e->getMessage());
+            $this->$assertRegExp('/previous and upcoming/i', $e->getMessage());
         }
     }
 
@@ -614,28 +656,46 @@ class ClientTest extends TestCase
 
     public function testWorkdayCountryMissing()
     {
+        if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+            $assertRegExp = 'assertMatchesRegularExpression';
+        } else {
+            $assertRegExp = 'assertRegExp';
+        }
+
         $client = new Client(array('key' => self::KEY));
 
         try {
             $client->workday(array());
         } catch (\Exception $e) {
-            $this->assertRegExp('/missing country/i', $e->getMessage());
+            $this->$assertRegExp('/missing country/i', $e->getMessage());
         }
     }
 
     public function testWorkdayStartMissing()
     {
+        if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+            $assertRegExp = 'assertMatchesRegularExpression';
+        } else {
+            $assertRegExp = 'assertRegExp';
+        }
+
         $client = new Client(array('key' => self::KEY));
 
         try {
             $client->workday(array('country' => 'US'));
         } catch (\Exception $e) {
-            $this->assertRegExp('/missing start date/i', $e->getMessage());
+            $this->$assertRegExp('/missing start date/i', $e->getMessage());
         }
     }
 
     public function testWorkdayDaysMissing()
     {
+        if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+            $assertRegExp = 'assertMatchesRegularExpression';
+        } else {
+            $assertRegExp = 'assertRegExp';
+        }
+
         $client = new Client(array('key' => self::KEY));
 
         try {
@@ -644,12 +704,18 @@ class ClientTest extends TestCase
                 'start' => '2019-07-01',
             ));
         } catch (\Exception $e) {
-            $this->assertRegExp('/missing days/i', $e->getMessage());
+            $this->$assertRegExp('/missing days/i', $e->getMessage());
         }
     }
 
     public function testWorkdayDaysNegative()
     {
+        if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+            $assertRegExp = 'assertMatchesRegularExpression';
+        } else {
+            $assertRegExp = 'assertRegExp';
+        }
+
         $client = new Client(array('key' => self::KEY));
 
         try {
@@ -659,7 +725,7 @@ class ClientTest extends TestCase
                 'days' => -10,
             ));
         } catch (\Exception $e) {
-            $this->assertRegExp('/days must be 1 or more/i', $e->getMessage());
+            $this->$assertRegExp('/days must be 1 or more/i', $e->getMessage());
         }
     }
 
