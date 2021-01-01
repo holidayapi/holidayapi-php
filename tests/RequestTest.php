@@ -15,6 +15,12 @@ class RequestTest extends TestCase
 
     public function testGet()
     {
+        if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+            $assertRegExp = 'assertMatchesRegularExpression';
+        } else {
+            $assertRegExp = 'assertRegExp';
+        }
+
         $url = 'https://holidayapi.com';
 
         $request = new Request(array(
@@ -29,7 +35,7 @@ class RequestTest extends TestCase
         try {
             $request->get($url);
         } catch (\Exception $e) {
-            $this->assertRegExp('/empty response/i', $e->getMessage());
+            $this->$assertRegExp('/empty response/i', $e->getMessage());
         }
     }
 }
