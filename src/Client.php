@@ -97,5 +97,18 @@ class Client
 
         return $this->request('workday', $request);
     }
+
+    public function workdays($request)
+    {
+        if (!isset($request['country'])) {
+            throw new \Exception('Missing country');
+        } elseif (!isset($request['start'])) {
+            throw new \Exception('Missing start date');
+        } elseif (!isset($request['end'])) {
+            throw new \Exception('Missing end date');
+        }
+
+        return $this->request('workdays', $request);
+    }
 }
 
