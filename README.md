@@ -8,19 +8,6 @@
 Official PHP library for [Holiday API](https://holidayapi.com) providing quick
 and easy access to holiday information from applications written in PHP.
 
-## Migrating from 1.x
-
-Please note, version 2.x of this library is a full rewrite of the 1.x series.
-The interfacing to the library has been simplified and existing applications
-upgrading to 2.x will need to be updated.
-
-| Version 1.x Syntax (Old)                   | Version 2.x Syntax (New)                                  |
-|--------------------------------------------|-----------------------------------------------------------|
-| `$holiday_api = new \HolidayAPI\v1($key);` | `$holiday_api = new \HolidayAPI\Client(['key' => $key]);` |
-
-Version 1.x of the library can still be found
-[here](https://github.com/joshtronic/php-holidayapi).
-
 ## Documentation
 
 Full documentation of the Holiday API endpoints is available
@@ -263,5 +250,18 @@ $holiday_api->workday([
   'country' => 'US',
   'start' => '2019-07-01',
   'days' => 7,
+]);
+```
+
+### Workdays
+
+#### Fetch number of workdays between two dates
+
+```php
+<?php
+$holiday_api->workdays([
+  'country' => 'US',
+  'start' => '2019-07-01',
+  'end' => '2019-07-10',
 ]);
 ```

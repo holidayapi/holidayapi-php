@@ -790,5 +790,149 @@ class ClientTest extends TestCase
             $this->assertSame('Internal server error', $e->getMessage());
         }
     }
+
+    public function testReturnWorkdays()
+    {
+        $url = self::BASE_URL . 'workdays?key=' . self::KEY . '&country=US&start=2019-07-01&end=2019-07-10';
+
+        $request = new Request(array(
+            'execute' => array(
+                $url => function ()
+                {
+                    return json_encode(array(
+                        'status' => 200,
+                        'workdays' => 7,
+                    ));
+                },
+            ),
+        ));
+
+        $client = new Client(array('key' => self::KEY, 'handler' => $request));
+
+        $this->assertEquals(array(
+            'status' => 200,
+            'workdays' => 7,
+        ), $client->workdays(array(
+            'country' => 'US',
+            'start' => '2019-07-01',
+            'end' => '2019-07-10',
+        )));
+    }
+
+    public function testWorkdaysCountryMissing()
+    {
+        if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+            $assertRegExp = 'assertMatchesRegularExpression';
+        } else {
+            $assertRegExp = 'assertRegExp';
+        }
+
+        $client = new Client(array('key' => self::KEY));
+
+        try {
+            $client->workdays(array());
+        } catch (\Exception $e) {
+            $this->$assertRegExp('/missing country/i', $e->getMessage());
+        }
+    }
+
+    public function testWorkdaysStartMissing()
+    {
+        if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+            $assertRegExp = 'assertMatchesRegularExpression';
+        } else {
+            $assertRegExp = 'assertRegExp';
+        }
+
+        $client = new Client(array('key' => self::KEY));
+
+        try {
+            $client->workdays(array('country' => 'US'));
+        } catch (\Exception $e) {
+            $this->$assertRegExp('/missing start date/i', $e->getMessage());
+        }
+    }
+
+    public function testWorkdaysEndMissing()
+    {
+        if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+            $assertRegExp = 'assertMatchesRegularExpression';
+        } else {
+            $assertRegExp = 'assertRegExp';
+        }
+
+        $client = new Client(array('key' => self::KEY));
+
+        try {
+            $client->workdays(array(
+                'country' => 'US',
+                'start' => '2019-07-01',
+            ));
+        } catch (\Exception $e) {
+            $this->$assertRegExp('/missing end date/i', $e->getMessage());
+        }
+    }
+
+    public function testWorkdaysRaise4xxErrors()
+    {
+        $url = self::BASE_URL . 'workdays?key=' . self::KEY . '&country=US&start=2019-07-01&end=2019-07-10';
+
+        $request = new Request(array(
+            'execute' => array(
+                $url => function ()
+                {
+                    return json_encode(array(
+                        'status' => 429,
+                        'error' => 'Rate limit exceeded',
+                    ));
+                },
+            ),
+        ));
+
+        $client = new Client(array('key' => self::KEY, 'handler' => $request));
+
+        try {
+            $client->workdays(array(
+                'country' => 'US',
+                'start' => '2019-07-01',
+                'end' => '2019-07-10',
+            ));
+        } catch (\Exception $e) {
+            $this->assertSame(429, $e->getCode());
+            $this->assertSame('Rate limit exceeded', $e->getMessage());
+        }
+    }
+
+    public function testWorkdaysRaise5xxErrors()
+    {
+        $url = self::BASE_URL . 'workdays?key=' . self::KEY . '&country=US&start=2019-07-01&end=2019-07-10';
+
+        $request = new Request(array(
+            'execute' => array(
+                $url => function ()
+                {
+                    return false;
+                },
+            ),
+            'error' => array(
+                $url => function ()
+                {
+                    return 'Internal server error';
+                },
+            ),
+        ));
+
+        $client = new Client(array('key' => self::KEY, 'handler' => $request));
+
+        try {
+            $client->workdays(array(
+                'country' => 'US',
+                'start' => '2019-07-01',
+                'end' => '2019-07-10',
+            ));
+        } catch (\Exception $e) {
+            $this->assertSame('Internal server error', $e->getMessage());
+        }
+    }
 }
 
