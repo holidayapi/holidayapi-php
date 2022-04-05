@@ -64,17 +64,6 @@ class Client
 
     public function holidays($request)
     {
-        if (!isset($request['country'])) {
-            throw new \Exception('Missing country');
-        } elseif (!isset($request['year'])) {
-            throw new \Exception('Missing year');
-        } elseif (
-            isset($request['previous'], $request['upcoming'])
-            && $request['previous'] && $request['upcoming']
-        ) {
-            throw new \Exception('Previous and upcoming are mutually exclusive');
-        }
-
         return $this->request('holidays', $request);
     }
 
@@ -85,29 +74,11 @@ class Client
 
     public function workday($request)
     {
-        if (!isset($request['country'])) {
-            throw new \Exception('Missing country');
-        } elseif (!isset($request['start'])) {
-            throw new \Exception('Missing start date');
-        } elseif (!isset($request['days'])) {
-            throw new \Exception('Missing days');
-        } elseif ($request['days'] < 1) {
-            throw new \Exception('Days must be 1 or more');
-        }
-
         return $this->request('workday', $request);
     }
 
     public function workdays($request)
     {
-        if (!isset($request['country'])) {
-            throw new \Exception('Missing country');
-        } elseif (!isset($request['start'])) {
-            throw new \Exception('Missing start date');
-        } elseif (!isset($request['end'])) {
-            throw new \Exception('Missing end date');
-        }
-
         return $this->request('workdays', $request);
     }
 }
